@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Store Dashboard{% endblock %}
+{% block content %}
+<h1>Store Dashboard</h1>
+<p><strong>Store Name:</strong> {{ store.name }}</p>
+<p><strong>Total Products:</strong> {{ store.products|length }}</p>
+<p><strong>Total Orders:</strong> {{ store.orders|length }}</p>
+<ul>
+  <li><a href="{{ url_for('manage_inventory') }}">Manage Inventory</a></li>
+  <li><a href="{{ url_for('view_orders') }}">View Orders</a></li>
+</ul>
+{% endblock %}
