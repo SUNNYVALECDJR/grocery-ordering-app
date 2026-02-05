@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Order Confirmation{% endblock %}
+{% block content %}
+<h1>Order Confirmation</h1>
+<p>Thank you for your order!</p>
+<p><strong>Order ID:</strong> {{ order.id }}</p>
+<p><strong>Delivery Method:</strong> {{ order.delivery_method|capitalize }}</p>
+<p><strong>Total Price:</strong> ${{ '%.2f' % order.total_price }}</p>
+<h2>Items</h2>
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Quantity</th>
+    <th>Price</th>
+  </tr>
+  {% for name, quantity, price in items %}
+  <tr>
+    <td>{{ name }}</td>
+    <td>{{ quantity }}</td>
+    <td>${{ '%.2f' % (price * quantity) }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<a href="{{ url_for('customer_home') }}">Continue shopping</a>
+{% endblock %}
