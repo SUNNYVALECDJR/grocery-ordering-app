@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Products{% endblock %}
+{% block content %}
+<h1>Available Products</h1>
+<p>Items in cart: {{ cart_count }}</p>
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Price</th>
+      <th>In stock</th>
+      <th>Add to cart</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for pid, product in store.products.items() %}
+    <tr>
+      <td>{{ product.name }}</td>
+      <td>${{ product.price }}</td>
+      <td>{{ product.quantity }}</td>
+      <td>
+        <form action="{{ url_for('add_to_cart', product_id=pid) }}" method="post">
+          <input type="number" name="quantity" min="1" max="{{ product.quantity }}" value="1">
+          <button type="submit">Add</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
