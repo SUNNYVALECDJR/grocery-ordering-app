@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Manage Inventory{% endblock %}
+{% block content %}
+<h1>Manage Inventory</h1>
+<h2>Current Products</h2>
+<table>
+    <tr><th>Name</th><th>Price</th><th>Quantity</th><th>Actions</th></tr>
+    {% for product_id, product in store.products.items() %}
+    <tr>
+        <td>{{ product.name }}</td>
+        <td>${{ "%.2f"|format(product.price) }}</td>
+        <td>{{ product.quantity }}</td>
+        <td>
+            <form action="{{ url_for('update_product', product_id=product_id) }}" method="post" style="display:inline;">
+                New price: <input type="text" name="price" placeholder="Price">
+                New quantity: <input type="number" name="quantity" min="0" placeholder="Quantity">
+                <button type="submit">Update</button>
+            </form>
+            <form action="{{ url_for('delete_product', product_id=product_id) }}" method="post" style="display:inline;" onclick="return confirm('Are you sure you want to delete this product?');">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<h2>Add Product</h2>
+<form action="{{ url_for('add_product') }}" method="post">
+    Name: <input type="text" name="name" required>
+    Price: <input type="text" name="price" required>
+    Quantity: <input type="number" name="quantity" min="0" required>
+    <button type="submit">Add Product</button>
+</form>
+{% endblock %}
