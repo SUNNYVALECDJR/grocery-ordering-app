@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Store Orders{% endblock %}
+{% block content %}
+<h1>Store Orders</h1>
+{% if store.orders %}
+<table>
+    <tr><th>Order #</th><th>Customer</th><th>Items</th><th>Total</th><th>Delivery Method</th></tr>
+    {% for order in store.orders %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ order.customer_name }}</td>
+        <td>
+            <ul>
+                {% for item in order.items %}
+                <li>{{ item.product.name }} &times; {{ item.quantity }}</li>
+                {% endfor %}
+            </ul>
+        </td>
+        <td>${{ '%.2f'|format(order.total_price) }}</td>
+        <td>{{ order.delivery_method }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No orders yet.</p>
+{% endif %}
+{% endblock %}
