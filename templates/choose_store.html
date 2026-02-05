@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Choose Store{% endblock %}
+{% block content %}
+  <h1>Choose a Store</h1>
+  <p>Select the store you want to shop from (or manage as an owner).</p>
+
+  <ul>
+    {% for sid, s in stores.items() %}
+      <li style="margin-bottom: 10px;">
+        <form method="POST" action="{{ url_for('select_store', store_id=sid) }}" style="display:inline;">
+          <button type="submit">{{ s.name }}</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
