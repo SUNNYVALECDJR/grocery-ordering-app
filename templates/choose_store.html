@@ -2,15 +2,23 @@
 {% block title %}Choose Store{% endblock %}
 {% block content %}
   <h1>Choose a Store</h1>
-  <p>Select the store you want to shop from (or manage as an owner).</p>
 
-  <ul>
+  {% if current_user.is_owner %}
+    <p>Select the store you want to manage.</p>
+  {% else %}
+    <p>Select the store you want to shop from.</p>
+  {% endif %}
+
+  <div class="store-list">
     {% for sid, s in stores.items() %}
-      <li style="margin-bottom: 10px;">
-        <form method="POST" action="{{ url_for('select_store', store_id=sid) }}" style="display:inline;">
-          <button type="submit">{{ s.name }}</button>
+      <div class="store-item">
+        <form method="POST" action="{{ url_for('select_store', store_id=sid) }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit" aria-label="Select store {{ s.name }}">{{ s.name }}</button>
         </form>
-      </li>
+      </div>
+    {% else %}
+      <p>No stores are available at the moment.</p>
     {% endfor %}
-  </ul>
+  </div>
 {% endblock %}
