@@ -63,3 +63,16 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+.store-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.store-item form {
+  display: block;
+}
+
+.store-item button {
+  /* style as needed */
+}
